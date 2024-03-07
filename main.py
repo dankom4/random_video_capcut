@@ -3,6 +3,10 @@ import os
 import json
 import time
 import uuid
+
+import keyboard
+import pyautogui
+import subprocess
 from PIL import Image
 from mutagen.mp3 import MP3
 from dotenv import load_dotenv
@@ -60,7 +64,7 @@ class Picture:
             id_file = f"{uuid.uuid4()}"
             f = file_read.read()
             my_json = json.loads(f)
-            ratio = ((width/3)*4)/height
+            ratio = ((width/9)*16)/height
             my_json["materials"]["videos"].append({"aigc_type": "none", "audio_fade": None, "cartoon_path": "",
                                                    "category_id": "", "category_name": "local", "check_flag": 63487,
                                                    "crop": {"lower_left_x": 0.0, "lower_left_y": 1.0, "lower_right_x": 1.0,
@@ -270,6 +274,23 @@ end_times = 0
 for _ in range(1, 6):
     end_times = main(_, end_times)
 
+
+subprocess.call(['C:/Users/AsRock/AppData/Local/CapCut/Apps/CapCut.exe'])
+time.sleep(3)
+pyautogui.moveTo(280, 350)
+pyautogui.click()
+time.sleep(2)
+keyboard.press("ctrl+e")
+keyboard.release("ctrl+e")
+time.sleep(2)
+keyboard.press('enter')
+keyboard.release('enter')
+time.sleep(0.5)
+pyautogui.click(1280, 720)
+keyboard.press('esc')
+keyboard.release('esc')
+keyboard.press('ctrl+alt+q')
+keyboard.release('ctrl+alt+q')
 
 
 
