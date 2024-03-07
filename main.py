@@ -11,6 +11,11 @@ load_dotenv()
 
 
 project_path = os.getenv('PROJECT_PATH')
+
+
+time_video = int(os.getenv('TIME_VIDEO'))
+
+
 class Picture:
     @staticmethod
     def get_random_video(def_path):
@@ -226,9 +231,9 @@ def main(num, end_time):
     pictures = Picture()
     name1, path1 = pictures.get_random_video(os.getenv(f'PATH_PICTURE{num}'))
     width1, height1 = pictures.get_size(path1)
-    pictures.write_new_fail(pictures.get_new_fail(name1, path1, width1, height1, times1))
-    pictures.write_new_data(pictures.get_new_data(name1, path1, width1, height1, times=times1, start_time=end_time))
-    end_time += times1
+    pictures.write_new_fail(pictures.get_new_fail(name1, path1, width1, height1, time_video))
+    pictures.write_new_data(pictures.get_new_data(name1, path1, width1, height1, times=time_video, start_time=end_time))
+    end_time += time_video
     return end_time
 
 
