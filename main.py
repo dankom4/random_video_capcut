@@ -237,6 +237,35 @@ def main(num, end_time):
     return end_time
 
 
+def reset():
+
+    with open(f"{project_path}\draft_meta_info.json",
+              "r", encoding="utf-8") as file:
+        f1 = file.read()
+        my_json = json.loads(f1)
+        my_json["draft_materials"][0]["value"] = []
+
+    with open(f"{project_path}\draft_meta_info.json",
+              "w", encoding="utf-8") as file_write:
+        file_write.write(json.dumps(my_json))
+
+    with open(f"{project_path}\draft_content.json",
+              "r", encoding="utf-8") as file2:
+        f2 = file2.read()
+        my_json = json.loads(f2)
+        my_json["materials"]["videos"] = []
+        my_json["materials"]['audios'] = []
+        my_json['tracks'] = [{'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                              'is_default_name': True, 'name': '', 'segments': [], 'type': 'video'},
+                             {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                              'is_default_name': True, 'name': '', 'segments': [], "type": "audio"}]
+
+    with open(f"{project_path}\draft_content.json",
+              "w", encoding="utf-8") as file_write2:
+        file_write2.write(json.dumps(my_json))
+
+
+reset()
 end_times = 0
 for _ in range(1, 6):
     end_times = main(_, end_times)
