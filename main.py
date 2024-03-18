@@ -225,8 +225,111 @@ for _ in range(int(os.getenv('COUNT'))):
                       "w", encoding="utf-8") as file_write:
                 file_write.write(json.dumps(datas))
 
+    class Text:
+
+        @staticmethod
+        def add_text_in_content1(time_end, text):
+            rgb_color = [round(random.random(), 6) for _ in range(3)]
+            hex_color = '#' + ''.join(map(lambda i: f"{int(i):02x}", map(lambda x: x * 100, rgb_color)))
+
+            with open(
+                    r'C:\Users\AsRock\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft\0305\draft_content.json') as f:
+                id_text = f'{uuid.uuid4()}'
+                f1 = f.read()
+                f2 = json.loads(f1)
+                pupu = {'add_type': 0, 'alignment': 1, 'background_alpha': 1.0,
+                        'background_color': '', 'background_height': 0.14,
+                        'background_horizontal_offset': 0.0, 'background_round_radius': 0.0,
+                        'background_style': 0, 'background_vertical_offset': 0.0,
+                        'background_width': 0.14, 'bold_width': 0.0, 'border_alpha': 1.0,
+                        'border_color': '', 'border_width': 37,
+                        'caption_template_info': {'category_id': '', 'category_name': '',
+                                                  'effect_id': '', 'request_id': '',
+                                                  'resource_id': '', 'resource_name': ''},
+                        'check_flag': 7, 'combo_info': {'text_templates': []},
+                        'content': '{"text":"pipi","styles":[{"fill":{"content":{"solid":{"color":[1,1,1]}}},"font":{"path":"C:/Users/AsRock/AppData/Local/CapCut/Apps/3.5.0.1268/Resources/Font/SystemFont/en.ttf","id":""},"size":30,"range":[0,100]}]}',
+                        'fixed_height': -1.0, 'fixed_width': -1.0,
+                        'font_category_id': '', 'font_category_name': '',
+                        'font_id': '', 'font_name': '',
+                        'font_path': 'C:/Users/AsRock/AppData/Local/CapCut/Apps/3.5.0.1268/Resources/Font/SystemFont/en.ttf',
+                        'font_resource_id': '', 'font_size': 1.0,
+                        'font_source_platform': 0, 'font_team_id': '',
+                        'font_title': 'none', 'font_url': '', 'fonts': [],
+                        'force_apply_line_max_width': False, 'global_alpha': 1.0,
+                        'group_id': '', 'has_shadow': False,
+                        'id': id_text, 'initial_scale': 1.0,
+                        'is_rich_text': False, 'italic_degree': 0, 'ktv_color': '',
+                        'language': '', 'layer_weight': 1, 'letter_spacing': 0.0, 'line_feed': 1,
+                        'line_max_width': 0.82, 'line_spacing': 0.02, 'name': '',
+                        'original_size': [], 'preset_category': '', 'preset_category_id': '',
+                        'preset_has_set_alignment': False, 'preset_id': '', 'preset_index': 0,
+                        'preset_name': '', 'recognize_task_id': '', 'recognize_type': 0,
+                        'relevance_segment': [], 'shadow_alpha': 0.8, 'shadow_angle': -45.0,
+                        'shadow_color': '', 'shadow_distance': 8.0,
+                        'shadow_point': {'x': 1.0182337649086284, 'y': -1.0182337649086284},
+                        'shadow_smoothing': 1.0, 'shape_clip_x': False,
+                        'shape_clip_y': False, 'style_name': '', 'sub_type': 0,
+                        'subtitle_keywords': None, 'text_alpha': 1.0,
+                        'text_color': '#FFFFFF', 'text_curve': None,
+                        'text_preset_resource_id': '', 'text_size': 30,
+                        'text_to_audio_ids': [], 'tts_auto_update': False, 'type': 'text',
+                        'typesetting': 0, 'underline': False, 'underline_offset': 0.22,
+                        'underline_width': 0.05, 'use_effect_default_color': True,
+                        'words': {'end_time': [], 'start_time': [], 'text': []}}
+                pip = json.loads(pupu['content'])
+                pip['text'] = text
+                pip['styles'][0]['fill']['content']['solid']['color'] = rgb_color
+                pip['styles'][0]['size'] = int(os.getenv('SIZE_TEXT'))
+                pip = json.dumps(pip)
+                pupu['content'] = pip
+                pupu['text_color'] = hex_color
+                pupu['text_size'] = int(os.getenv('SIZE_TEXT'))
+
+                f2['materials']['texts'].append(pupu)
+                f2.get('tracks').insert(1,
+                                        {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}', 'is_default_name': True,
+                                         'name': '',
+                                         'segments': [
+                                             {
+                                                 'cartoon': False, 'clip': {'alpha': 1.0, 'flip': {'horizontal': False,
+                                                                                                   'vertical': False},
+                                                                            'rotation': 0.0,
+                                                                            'scale': {'x': 1.0, 'y': 1.0},
+                                                                            'transform': {'x': 0.0, 'y': 0.0}},
+                                                 'common_keyframes': [], 'enable_adjust': False,
+                                                 'enable_color_curves': True,
+                                                 'enable_color_match_adjust': False, 'enable_color_wheels': True,
+                                                 'enable_lut': False, 'enable_smart_color_adjust': False,
+                                                 'extra_material_refs': [],
+                                                 'group_id': '', 'hdr_settings': None,
+                                                 'id': f'{uuid.uuid4()}', 'intensifies_audio': False,
+                                                 'is_placeholder': False, 'is_tone_modify': False, 'keyframe_refs': [],
+                                                 'last_nonzero_volume': 1.0,
+                                                 'material_id': id_text, 'render_index': 14000,
+                                                 'responsive_layout': {'enable': False, 'horizontal_pos_layout': 0,
+                                                                       'size_layout': 0, 'target_follow': '',
+                                                                       'vertical_pos_layout': 0}, 'reverse': False,
+                                                 'source_timerange': None, 'speed': 1.0,
+                                                 'target_timerange': {'duration': int(os.getenv('TIME_VIDEO')),
+                                                                      'start': time_end},
+                                                 'template_id': '',
+                                                 'template_scene': 'default', 'track_attribute': 0,
+                                                 'track_render_index': 0,
+                                                 'uniform_scale': {'on': True, 'value': 1.0}, 'visible': True,
+                                                 'volume': 1.0}], 'type': 'text'
+                                         }
+                                        )
+                return f2
+
+        @staticmethod
+        def add_with_text_in_content(data):
+            with open(r'C:\Users\AsRock\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft\0305\draft_content.json', 'w') as f:
+                f.write(json.dumps(data))
+
 
     def main(num, end_time):
+        text = Text()
+        text.add_with_text_in_content(text.add_text_in_content1(time_end=end_time, text=os.getenv(f'TEXT{num}')))
         sound = Sound()
         name2, path2 = sound.get_random_sound(os.getenv(f'PATH_SOUND{num}'))
         times1 = sound.get_times(path2)
@@ -239,6 +342,7 @@ for _ in range(int(os.getenv('COUNT'))):
         pictures.write_new_fail(pictures.get_new_fail(name1, path1, width1, height1, time_video))
         pictures.write_new_data(pictures.get_new_data(name1, path1, width1, height1, times=time_video,
                                                       start_time=end_time))
+
         end_time += time_video
         return end_time
 
@@ -360,7 +464,6 @@ for _ in range(int(os.getenv('COUNT'))):
 
 
     open_project()
-    add_subtitles()
     close_project()
 
 
