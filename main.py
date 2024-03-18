@@ -242,12 +242,12 @@ for _ in range(int(os.getenv('COUNT'))):
                         'background_horizontal_offset': 0.0, 'background_round_radius': 0.0,
                         'background_style': 0, 'background_vertical_offset': 0.0,
                         'background_width': 0.14, 'bold_width': 0.0, 'border_alpha': 1.0,
-                        'border_color': '', 'border_width': 37,
+                        'border_color': '#000000', 'border_width': 0.08,
                         'caption_template_info': {'category_id': '', 'category_name': '',
                                                   'effect_id': '', 'request_id': '',
                                                   'resource_id': '', 'resource_name': ''},
                         'check_flag': 7, 'combo_info': {'text_templates': []},
-                        'content': '{"text":"pipi","styles":[{"fill":{"content":{"solid":{"color":[1,1,1]}}},"font":{"path":"C:/Users/AsRock/AppData/Local/CapCut/Apps/3.5.0.1268/Resources/Font/SystemFont/en.ttf","id":""},"size":30,"range":[0,100]}]}',
+                        'content': '{"text":"pipi","styles":[{"fill":{"content":{"solid":{"color":[1,1,1]}}},"font":{"path":"C:/Users/AsRock/AppData/Local/CapCut/Apps/3.5.0.1268/Resources/Font/SystemFont/en.ttf","id":""},"strokes": [{"content":{"solid":{"color":[0,0,0]}},"width":0.08}],"size":30,"range":[0,100]}]}',
                         'fixed_height': -1.0, 'fixed_width': -1.0,
                         'font_category_id': '', 'font_category_name': '',
                         'font_id': '', 'font_name': '',
@@ -280,6 +280,7 @@ for _ in range(int(os.getenv('COUNT'))):
                 pip['text'] = text
                 pip['styles'][0]['fill']['content']['solid']['color'] = rgb_color
                 pip['styles'][0]['size'] = int(os.getenv('SIZE_TEXT'))
+                pip['styles'][0]['strokes']
                 pip = json.dumps(pip)
                 pupu['content'] = pip
                 pupu['text_color'] = hex_color
