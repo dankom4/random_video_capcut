@@ -194,7 +194,7 @@ for _ in range(int(os.getenv('COUNT'))):
                                          {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
                                           'is_default_name': True, 'name': '', 'segments': [], "type": "audio"}
                                          ]
-                my_json['tracks'][1]['segments'].append({'cartoon': False, 'clip': None, 'common_keyframes': [],
+                my_json['tracks'][2]['segments'].append({'cartoon': False, 'clip': None, 'common_keyframes': [],
                                                          'enable_adjust': False, 'enable_color_curves': True,
                                                          'enable_color_match_adjust': False, 'enable_color_wheels': True,
                                                          'enable_lut': False, 'enable_smart_color_adjust': False,
@@ -233,7 +233,7 @@ for _ in range(int(os.getenv('COUNT'))):
             hex_color = '#' + ''.join(map(lambda i: f"{int(i):02x}", map(lambda x: x * 100, rgb_color)))
 
             with open(
-                    r'C:\Users\AsRock\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft\0305\draft_content.json') as f:
+                    f'{os.getenv("PROJECT_PATH")}\draft_content.json') as f:
                 id_text = f'{uuid.uuid4()}'
                 f1 = f.read()
                 f2 = json.loads(f1)
@@ -280,17 +280,21 @@ for _ in range(int(os.getenv('COUNT'))):
                 pip['text'] = text
                 pip['styles'][0]['fill']['content']['solid']['color'] = rgb_color
                 pip['styles'][0]['size'] = int(os.getenv('SIZE_TEXT'))
-                pip['styles'][0]['strokes']
                 pip = json.dumps(pip)
                 pupu['content'] = pip
                 pupu['text_color'] = hex_color
                 pupu['text_size'] = int(os.getenv('SIZE_TEXT'))
 
                 f2['materials']['texts'].append(pupu)
-                f2.get('tracks').insert(1,
-                                        {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}', 'is_default_name': True,
-                                         'name': '',
-                                         'segments': [
+                if f2.get('tracks') == []:
+                    f2['tracks'] = [{'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                                          'is_default_name': True, 'name': '', 'segments': [], 'type': 'video'},
+                                         {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                                          'is_default_name': True, 'name': '', 'segments': [], 'type': 'text'},
+                                         {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                                          'is_default_name': True, 'name': '', 'segments': [], "type": "audio"}
+                                         ]
+                f2['tracks'][1]['segments'].append(
                                              {
                                                  'cartoon': False, 'clip': {'alpha': 1.0, 'flip': {'horizontal': False,
                                                                                                    'vertical': False},
@@ -317,14 +321,13 @@ for _ in range(int(os.getenv('COUNT'))):
                                                  'template_scene': 'default', 'track_attribute': 0,
                                                  'track_render_index': 0,
                                                  'uniform_scale': {'on': True, 'value': 1.0}, 'visible': True,
-                                                 'volume': 1.0}], 'type': 'text'
-                                         }
+                                                 'volume': 1.0}
                                         )
                 return f2
 
         @staticmethod
         def add_with_text_in_content(data):
-            with open(r'C:\Users\AsRock\AppData\Local\CapCut\User Data\Projects\com.lveditor.draft\0305\draft_content.json', 'w') as f:
+            with open(f'{os.getenv("PROJECT_PATH")}\draft_content.json', 'w') as f:
                 f.write(json.dumps(data))
 
 
@@ -366,10 +369,14 @@ for _ in range(int(os.getenv('COUNT'))):
             my_json = json.loads(f2)
             my_json["materials"]["videos"] = []
             my_json["materials"]['audios'] = []
+            my_json['materials']['texts'] = []
             my_json['tracks'] = [{'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
                                   'is_default_name': True, 'name': '', 'segments': [], 'type': 'video'},
                                  {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
-                                  'is_default_name': True, 'name': '', 'segments': [], "type": "audio"}]
+                                  'is_default_name': True, 'name': '', 'segments': [], "type": "audio"},
+                                 {'attribute': 0, 'flag': 0, 'id': f'{uuid.uuid4()}',
+                                  'is_default_name': True, 'name': '', 'segments': [], "type": "text"}
+                                 ]
 
         with open(f"{project_path}\draft_content.json",
                   "w", encoding="utf-8") as file_write2:
@@ -399,69 +406,7 @@ for _ in range(int(os.getenv('COUNT'))):
         keyboard.release('esc')
         keyboard.press('ctrl+alt+q')
         keyboard.release('ctrl+alt+q')
-
-    def add_subtitles():
-        subtitles_x, subtitles_y = map(int, os.getenv('CORD_SUBTITLES').split())
-        create_x, create_y = map(int, os.getenv('CORD_CREATE').split())
-        language_x, language_y = map(int, os.getenv('CORD_LANGUAGE').split())
-        language2_x, language2_y = map(int, os.getenv('CORD_LANGUAGE2').split())
-        size_text_x, size_text_y = map(int, os.getenv('CORD_SIZE').split())
-        basic_x, basic_y = map(int, os.getenv('CORD_BASIC').split())
-        size_text = os.getenv('SIZE_TEXT')
-        color_x, color_y = map(int, os.getenv('CORD_COLOR').split())
-        color2_x, color2_y = map(int, os.getenv('CORD_COLOR2').split())
-        stroke_x, stroke_y = map(int, os.getenv('CORD_STROKE').split())
-        stroke_size_x, stroke_size_y = map(int, os.getenv('CORD_STROKE_SIZE').split())
-        stroke_size = os.getenv('STROKE_SIZE')
-        animation_x, animation_y = map(int, os.getenv('CORD_ANIMATION').split())
-        captions_x, captions_y = map(int, os.getenv('CORD_CAPTIONS').split())
-        animation_style_x, animation_style_y = map(int, os.getenv('ANIMATION_STYLE').split())
-
-        time.sleep(2)
-        for _ in range(2):
-            keyboard.press('tab')
-            keyboard.release('tab')
-        time.sleep(0.1)
-        pyautogui.click(subtitles_x, subtitles_y)
-        time.sleep(0.2)
-        pyautogui.click(language_x, language_y)
-        time.sleep(0.3)
-        pyautogui.moveTo(language2_x, language2_y)
-        time.sleep(0.3)
-        for scroll_count in range(5):
-            pyautogui.scroll(-200)
-        pyautogui.moveRel(0, 30)
-        time.sleep(1.5)
-        pyautogui.click()
-        pyautogui.click(create_x, create_y)
-        time.sleep(10)
-        pyautogui.click(basic_x, basic_y)
-        pyautogui.click(size_text_x, size_text_y)
-        keyboard.press('backspace')
-        time.sleep(0.1)
-        keyboard.release('backspace')
-        time.sleep(0.05)
-        keyboard.write(size_text)
-        pyautogui.click(color_x, color_y)
-        time.sleep(0.1)
-        pyautogui.click(color2_x, color2_y)
-        time.sleep(0.1)
-        pyautogui.click(color_x, color_y)
-        pyautogui.scroll(-1000)
-        time.sleep(1)
-        pyautogui.click(stroke_x, stroke_y)
-        time.sleep(0.5)
-        pyautogui.click(stroke_size_x, stroke_size_y)
-        keyboard.press('backspace')
-        time.sleep(0.1)
-        keyboard.release('backspace')
-        keyboard.write(stroke_size)
-        pyautogui.click(animation_x, animation_y)
-        time.sleep(0.1)
-        pyautogui.click(captions_x, captions_y)
-        time.sleep(0.1)
-        pyautogui.click(animation_style_x, animation_style_y)
-        time.sleep(2)
+        time.sleep(3)
 
 
     open_project()
